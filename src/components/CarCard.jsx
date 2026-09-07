@@ -1,30 +1,33 @@
+import { useState } from "react";
+
 function CarCard({ name, year, type, price, description, image, link }) {
+  const [showDetails, setShowDetails] = useState(false);
+
   return (
-    <article className="car-card">
-      <div className="car-image">
-        <img src={image} alt={name} />
-      </div>
+    <article
+      className="car-card"
+      onMouseEnter={() => setShowDetails(true)}
+      onMouseLeave={() => setShowDetails(false)}
+    >
+      <img src={image} alt={name} />
 
       <div className="car-content">
         <p className="car-type">
           {year} · {type}
         </p>
 
-        <h3>{name}</h3>
+        <h2>{name}</h2>
 
-        <p className="description">{description}</p>
+        <div className={`card-details ${showDetails ? "show" : ""}`}>
+          <p className="description">{description}</p>
 
-        <div className="card-bottom">
-          <div>
-            <p className="price-label">Starting Price</p>
-            <p className="price">{price}</p>
-          </div>
+          <p className="price">{price}</p>
 
           <a
+            className="view-button"
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="view-button"
           >
             View Car
           </a>
